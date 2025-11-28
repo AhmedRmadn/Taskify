@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8080;
   try {
     await sequelize.authenticate();
     console.log('DB connected');
-    await sequelize.sync();
+    // await sequelize.sync();
     console.log('Models synchronized');
 
     app.listen(PORT, () => {
