@@ -1,0 +1,12 @@
+{
+  "name": "taskify",
+  "version": "1.0.0",
+  "description": "task for 34ML",
+  "license": "ISC",
+  "author": "Ramadan",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
