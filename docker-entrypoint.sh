@@ -1,8 +1,9 @@
 #!/bin/sh
+set -e
 
 echo "Waiting for MySQL to be ready..."
 
-# Alpine uses netcat, but ensure arguments work for the specific nc version
+# Alpine netcat version requires '-zv' sometimes; but '-z' usually works
 while ! nc -z $DB_HOST $DB_PORT; do
   sleep 1
   echo "Still waiting..."
@@ -15,3 +16,4 @@ npx sequelize-cli db:migrate
 
 echo "Starting Node.js server..."
 npm start
+
