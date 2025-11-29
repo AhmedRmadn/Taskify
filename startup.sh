@@ -1,7 +1,7 @@
 #!/bin/bash
 
 chmod +x docker-entrypoint.sh
-dos2unix docker-entrypoint.sh || true  # ignore if dos2unix not installed
+dos2unix docker-entrypoint.sh || true 
 
 echo "========================================"
 echo "Building Docker image..."
