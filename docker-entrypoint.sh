@@ -1,4 +1,4 @@
-
+#!/bin/sh
 
 echo "Waiting for MySQL to be ready..."
 
