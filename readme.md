@@ -219,6 +219,8 @@ NODE_ENV=production
 
 - NodeJS listens internally on port 8080 and maps to host port 10279
 
+- Branch feature/jwt-auth for the same app with Auth feature 
+
 ## 🙏 Acknowledgments
 
 - This project was developed as part of the 34ML Blockchain Specialist Assessment.
