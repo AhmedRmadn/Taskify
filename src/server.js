@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8080;
     console.log('Models synchronized');
 
     app.listen(PORT ,'0.0.0.0', () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`Server running on port v2 ${PORT}`);
     });
   } catch (err) {
     console.error('Unable to start server:', err);
