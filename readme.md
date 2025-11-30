@@ -31,7 +31,45 @@ The application persists data in a MySQL database and runs entirely in Docker co
 | **Scripting**        | Bash (startup.sh) for automation |
 
 ## 📖 API Documentation
+### 🚪 Sign In
+- **Method**: `POST`
+- **Endpoint**: `/auth/login`
+- **Description**: Authenticates a user and returns a JWT
+- **Request Body**:
+  ```json
+  {
+    "email": "email",
+    "password": "password123"
+  }
+  ```
+- **Response** (`200 OK`):
+  ```json
+  {
+    "token": "token",
+  }
+  ```
 
+---
+
+### 🆕 Sign Up
+- **Method**: `POST`
+- **Endpoint**: `/auth/signup`
+- **Description**: Registers a new user.
+- **Request Body**:
+  ```json
+  {
+    "email": "john.doe@example.com",
+    "password": "a-strong-password"
+  }
+  ```
+- **Response** (`201 CREATED`):
+  ```json
+  {
+    "userId": 3,
+    "message": "User registered successfully!",
+  }
+  ```
+all api require header Authorization: Bearer <your-jwt-token>
 ### 🧾 Create Task Item
 
 - **Method**: `POST`
@@ -203,6 +241,7 @@ DB_NAME=mydb
 DB_PORT=3306
 PORT=8080
 NODE_ENV=production
+JWT_SECRET=your_jwt_secret_key
 ```
 
 3. Start the application:
@@ -219,7 +258,6 @@ NODE_ENV=production
 
 - NodeJS listens internally on port 8080 and maps to host port 10279
 
-- there is branch with auth feature jwt
 
 ## 🙏 Acknowledgments
 
