@@ -6,12 +6,14 @@ module.exports = (req, res, next) => {
     if (!header) return res.status(401).json({ message: "Missing token" });
 
     const token = header.split(" ")[1];
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = decoded;
+    req.user = {
+      id: decoded.userId, 
+    };
+    console.log("Authenticated user:", req.user);
     next();
   } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
+    return res.status(401).json({ message: "Invalid or expired token" });
   }
 };

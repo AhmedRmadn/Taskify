@@ -6,7 +6,7 @@ dos2unix docker-entrypoint.sh || true
 echo "========================================"
 echo "Building Docker image..."
 echo "========================================"
-docker compose up --build -d.
+docker build -t taskify-api .
 
 echo ""
 echo "========================================"
@@ -25,4 +25,3 @@ echo "========================================"
 echo "Showing logs (Ctrl+C to exit)"
 echo "========================================"
 docker compose logs -f
-

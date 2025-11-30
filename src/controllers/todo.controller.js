@@ -1,25 +1,33 @@
 
-const Todo = require('../models/todo.model');
+const { Todo } = require('../models');
 
 exports.createTodo = async (req, res, next) => {
   try {
     const { title, description, completed, dueDate, priority } = req.body;
-    if (!title) return res.status(400).json({ message: 'title is required' });
 
     const todo = await Todo.create({
-        title,
-        description,
-        completed,
-        dueDate,
-        priority
+      userId: req.user.id,    
+      title,
+      description,
+      completed,
+      dueDate,
+      priority
     });
-    return res.status(201).json(todo);
-  } catch (err) { next(err); }
+
+    res.status(201).json(todo);
+  } catch (err) {
+    next(err);
+  }
 };
 
+
 exports.getAllTodos = async (req, res, next) => {
+  console.log("Fetching todos for user:", req.user);
   try {
-    const todos = await Todo.findAll({ order: [['createdAt', 'DESC']] });
+      const todos = await Todo.findAll({
+      where: { userId: req.user.id },
+      order: [['createdAt', 'DESC']]
+       });
     return res.json(todos);
   } catch (err) { next(err); }
 };
@@ -27,7 +35,9 @@ exports.getAllTodos = async (req, res, next) => {
 exports.getTodoById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const todo = await Todo.findByPk(id);
+    const todo = await Todo.findOne({
+  where: { id: req.params.id, userId: req.user.id }
+});
     if (!todo) return res.status(404).json({ message: 'Todo not found' });
     return res.json(todo);
   } catch (err) { next(err); }
@@ -37,7 +47,10 @@ exports.updateTodo = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { title, description, completed, dueDate, priority } = req.body;
-    const todo = await Todo.findByPk(id);
+    const todo = await Todo.findOne({
+  where: { id: req.params.id, userId: req.user.id }
+});
+
     if (!todo) return res.status(404).json({ message: 'Todo not found' });
 
     todo.title = title ?? todo.title;
@@ -55,7 +68,10 @@ exports.updateTodo = async (req, res, next) => {
 exports.deleteTodo = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const todo = await Todo.findByPk(id);
+    const todo = await Todo.findOne({
+    where: { id: req.params.id, userId: req.user.id }
+    });
+
     if (!todo) return res.status(404).json({ message: 'Todo not found' });
 
     await todo.destroy();
