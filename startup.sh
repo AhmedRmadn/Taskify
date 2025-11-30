@@ -6,7 +6,7 @@ dos2unix docker-entrypoint.sh || true
 echo "========================================"
 echo "Building Docker image..."
 echo "========================================"
-docker build -t todo-api .
+docker compose up --build -d.
 
 echo ""
 echo "========================================"
