@@ -193,7 +193,7 @@ git clone <repo-url>
 cd Taskify
 ```
 
-2. Set up environment variables in .env:
+2. Set up environment variables in .env it is public for evaluation:
 
 ```
 DB_HOST=db
@@ -218,6 +218,8 @@ NODE_ENV=production
 - Docker volumes ensure data persists between container restarts
 
 - NodeJS listens internally on port 8080 and maps to host port 10279
+
+- there is branch with auth feature jwt
 
 ## 🙏 Acknowledgments
 
