@@ -1,51 +1,54 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Todo = sequelize.define('Todo', {
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true
-  },
+module.exports = (sequelize, DataTypes) => {
 
-  title: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    validate: {
-      notEmpty: { msg: 'Title cannot be empty' }
+  const Todo = sequelize.define('Todo', {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+
+    userId: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+
+    title: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+
+    completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+
+    dueDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+
+    priority: {
+      type: DataTypes.ENUM('low', 'medium', 'high'),
+      allowNull: false,
+      defaultValue: 'medium'
     }
-  },
 
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
+  }, {
+    tableName: 'todos',
+    timestamps: true
+  });
 
-  completed: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
-  },
+  Todo.associate = (models) => {
+    Todo.belongsTo(models.User, { foreignKey: "userId" });
+  };
 
-  dueDate: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-
-priority: {
-  type: DataTypes.ENUM('low', 'medium', 'high'),
-  allowNull: false,
-  defaultValue: 'medium',
-  validate: {
-    isIn: {
-      args: [['low', 'medium', 'high']],
-      msg: 'priority must be one of: low, medium, high'
-    }
-  }
-}
-
-}, {
-  tableName: 'todos',
-  timestamps: true
-});
-
-module.exports = Todo;
+  return Todo;
+};
