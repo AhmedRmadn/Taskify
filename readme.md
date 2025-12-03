@@ -63,20 +63,6 @@ The application persists data in a MySQL database and runs entirely in Docker co
 
 ---
 
-### 📨 Apply for Loan
-
-- **Method**: `PATCH`
-- **Endpoint**: `/api/loans/customer/apply/<loan_id>/`
-- **Description**: Customer submits the draft loan for approval.
-- **Response** (`200 OK`):
-  ```json
-  {
-    "id": 3
-  }
-  ```
-
----
-
 ### 👀 List all created tasks
 
 - **Method**: `GET`
